@@ -2,30 +2,30 @@
 #include <stdlib.h>
 #include <math.h>
 
-///Ñ§ºÅ£º1163450201
-///ĞÕÃû£º
-///ÊµÑéÒ»£ºÒ»Ôª¶àÏîÊ½µÄ´úÊıÔËËã
-///Éè¼ÆÏßĞÔ±íµÄ¶¯Ì¬Á´Ê½´æ´¢£¬ÊµÏÖÔËËã
-///ÎÄ¼şÊäÈëÊä³ö½¨Á¢¶àÏîÊ½
-///¼ÆËãx0µÄÖµ£¬floatĞÍ
-///ÊµÏÖËÄÔòÔËËã
+///å­¦å·ï¼š1163450201
+///å§“åï¼š
+///å®éªŒä¸€ï¼šä¸€å…ƒå¤šé¡¹å¼çš„ä»£æ•°è¿ç®—
+///è®¾è®¡çº¿æ€§è¡¨çš„åŠ¨æ€é“¾å¼å­˜å‚¨ï¼Œå®ç°è¿ç®—
+///æ–‡ä»¶è¾“å…¥è¾“å‡ºå»ºç«‹å¤šé¡¹å¼
+///è®¡ç®—x0çš„å€¼ï¼Œfloatå‹
+///å®ç°å››åˆ™è¿ç®—
 
-/*¶¨Òå¶àÏîÊ½ÖĞµÄÏî*/
+/*å®šä¹‰å¤šé¡¹å¼ä¸­çš„é¡¹*/
 typedef struct polynode
 {
-    double coef;    /*ÏµÊı*/
-    int exp;        /*Ö¸Êı*/
-    struct polynode * link; /*ÏÂÒ»ÏîÖ¸Õë*/
+    double coef;    /*ç³»æ•°*/
+    int exp;        /*æŒ‡æ•°*/
+    struct polynode * link; /*ä¸‹ä¸€é¡¹æŒ‡é’ˆ*/
 }poly,*polypointer;
 
-/*Îª¶àÏîÊ½µÄÏîÉêÇëÄÚ´æ*/
+/*ä¸ºå¤šé¡¹å¼çš„é¡¹ç”³è¯·å†…å­˜*/
 polypointer newPoly()
 {
     polypointer x;
     x = (polypointer)malloc(sizeof(poly));
     if(x == NULL)
     {
-        printf("ÄÚ´æ²»×ã£¬ÎŞ·¨ÉêÇë\n");
+        printf("å†…å­˜ä¸è¶³ï¼Œæ— æ³•ç”³è¯·\n");
         exit(1);
     }
     x->coef = 0;
@@ -34,7 +34,7 @@ polypointer newPoly()
     return x;
 }
 
-/*½¨Á¢Ò»¸öĞÂ½áµã£¬ÏµÊıc£¬Ö¸Êıe£¬Á´½Óµ½xºó*/
+/*å»ºç«‹ä¸€ä¸ªæ–°ç»“ç‚¹ï¼Œç³»æ•°cï¼ŒæŒ‡æ•°eï¼Œé“¾æ¥åˆ°xå*/
 polypointer polyAttach(double c, int e, polypointer arg)
 {
     polypointer x;
@@ -45,7 +45,7 @@ polypointer polyAttach(double c, int e, polypointer arg)
     return x;
 }
 
-/*´ÓÍ·ÖÁÎ²´òÓ¡¶àÏîÊ½*/
+/*ä»å¤´è‡³å°¾æ‰“å°å¤šé¡¹å¼*/
 void polyPrint(polypointer arg)
 {
     if(arg->exp == 0)
@@ -85,83 +85,83 @@ void polyPrint(polypointer arg)
     printf("\n");
 }
 
-/*¶àÏîÊ½ºÏ²¢Í¬ÀàÏî*/
+/*å¤šé¡¹å¼åˆå¹¶åŒç±»é¡¹*/
 void polyCombine(polypointer * arg)
 {
     polypointer p, q, c, d, tmp;
     double x = 0;
     p = (*arg);
     q = (*arg)->link;
-    c = p;          /*cÖ¸ÏòqµÄÇ°Ò»Ïî*/
+    c = p;          /*cæŒ‡å‘qçš„å‰ä¸€é¡¹*/
     d = newPoly();
-    d->link = p;          /*dÖ¸ÏòpµÄÇ°Ò»Ïî*/
-    if(q == NULL)   /*Ö»ÓĞÒ»Ïî*/
+    d->link = p;          /*dæŒ‡å‘pçš„å‰ä¸€é¡¹*/
+    if(q == NULL)   /*åªæœ‰ä¸€é¡¹*/
     {
-        if(p->coef == 0)     /*ÌØÊâ£ºÖ»ÓĞÒ»¸ö½Úµã²¢ÇÒÏµÊıÎª0*/
+        if(p->coef == 0)     /*ç‰¹æ®Šï¼šåªæœ‰ä¸€ä¸ªèŠ‚ç‚¹å¹¶ä¸”ç³»æ•°ä¸º0*/
         {
-            *arg = newPoly();   /*·µ»Ø¿Õ½Úµã*/
+            *arg = newPoly();   /*è¿”å›ç©ºèŠ‚ç‚¹*/
             return;
         }
-        return;     /*Ô­Ñù·µ»Ø*/
+        return;     /*åŸæ ·è¿”å›*/
     }
     while(p != NULL)
     {
         while(q != NULL)
         {
-        if(q->exp == p->exp)        /*Í¬ÀàÏî*/
+        if(q->exp == p->exp)        /*åŒç±»é¡¹*/
         {
             x = p->coef + q->coef;
-            if(x != 0)              /*ÏµÊıºÍ²»µÈÓÚ0*/
+            if(x != 0)              /*ç³»æ•°å’Œä¸ç­‰äº0*/
             {
                 p->coef = x;
-                c->link = q->link;  /*ºÏ²¢ºóÉ¾³ıq½áµã*/
+                c->link = q->link;  /*åˆå¹¶ååˆ é™¤qç»“ç‚¹*/
                 tmp = q;
                 q = q->link;
                 free(tmp);
             }
-            else                    /*ÏµÊıºÍÎª0,Í¬Ê±É¾³ıÁ½¸ö½Úµã*/
+            else                    /*ç³»æ•°å’Œä¸º0,åŒæ—¶åˆ é™¤ä¸¤ä¸ªèŠ‚ç‚¹*/
             {
-                if(p == *arg && (p->link != q))       /*Èç¹ûµÚÒ»¸ö½ÚµãÊÇÍ·½Úµã²¢ÇÒÃ»ÓĞÏàÁÚ*/
+                if(p == *arg && (p->link != q))       /*å¦‚æœç¬¬ä¸€ä¸ªèŠ‚ç‚¹æ˜¯å¤´èŠ‚ç‚¹å¹¶ä¸”æ²¡æœ‰ç›¸é‚»*/
                 {
                     tmp = (*arg);
-                    *arg = (*arg)->link;    /*ĞŞ¸ÄÍ·½Úµã*/
+                    *arg = (*arg)->link;    /*ä¿®æ”¹å¤´èŠ‚ç‚¹*/
                     d->link = *arg;
-                    free(tmp);              /*É¾³ıÍ·½Úµã*/
-                    c->link = q->link;      /*É¾³ıq½áµã*/
+                    free(tmp);              /*åˆ é™¤å¤´èŠ‚ç‚¹*/
+                    c->link = q->link;      /*åˆ é™¤qç»“ç‚¹*/
                     tmp = q;
                     q = q->link;
                     free(tmp);
                 }
-                else if(p == *arg && (p->link == q))     /*Èç¹ûµÚÒ»¸ö½ÚµãÊÇÍ·½Úµã²¢ÇÒÏàÁÚ*/
+                else if(p == *arg && (p->link == q))     /*å¦‚æœç¬¬ä¸€ä¸ªèŠ‚ç‚¹æ˜¯å¤´èŠ‚ç‚¹å¹¶ä¸”ç›¸é‚»*/
                 {
                     tmp = (*arg);
-                    *arg = ((*arg)->link)->link;    /*ĞŞ¸ÄÍ·½Úµã*/
+                    *arg = ((*arg)->link)->link;    /*ä¿®æ”¹å¤´èŠ‚ç‚¹*/
                     p = *arg;
                     d->link = *arg;
-                    free(tmp);              /*É¾³ıÍ·½Úµã*/
+                    free(tmp);              /*åˆ é™¤å¤´èŠ‚ç‚¹*/
                     c = *arg;
                     tmp = q;
                     q = (q->link)->link;
                     free(tmp);
                 }
-                else if(p != *arg && (p->link != q))              /*µÚÒ»¸ö½Úµã²»ÊÇÍ·½Úµã²¢ÇÒ²»ÏàÁÚ*/
+                else if(p != *arg && (p->link != q))              /*ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ä¸æ˜¯å¤´èŠ‚ç‚¹å¹¶ä¸”ä¸ç›¸é‚»*/
                 {
-                    d->link = p->link;      /*É¾³ıp½Úµã*/
+                    d->link = p->link;      /*åˆ é™¤pèŠ‚ç‚¹*/
                     tmp = p;
                     p = p->link;
                     free(tmp);
-                    c->link = q->link;      /*É¾³ıq½áµã*/
+                    c->link = q->link;      /*åˆ é™¤qç»“ç‚¹*/
                     tmp = q;
                     q = q->link;
                     free(tmp);
                 }
-                else if(p != *arg && (p->link == q))        /*µÚÒ»¸ö½Úµã²»ÊÇÍ·½Úµã²¢ÇÒÏàÁÚ*/
+                else if(p != *arg && (p->link == q))        /*ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ä¸æ˜¯å¤´èŠ‚ç‚¹å¹¶ä¸”ç›¸é‚»*/
                 {
-                    d->link = (p->link)->link;      /*É¾³ıp½Úµã*/
+                    d->link = (p->link)->link;      /*åˆ é™¤pèŠ‚ç‚¹*/
                     tmp = p;
                     p = (p->link)->link;
                     free(tmp);
-                    c = p;      /*É¾³ıq½áµã*/
+                    c = p;      /*åˆ é™¤qç»“ç‚¹*/
                     tmp = q;
                     q = (q->link)->link;
                     free(tmp);
@@ -172,7 +172,7 @@ void polyCombine(polypointer * arg)
                 }
             }
         }
-        else            /*²»ÊÇÍ¬ÀàÏî*/
+        else            /*ä¸æ˜¯åŒç±»é¡¹*/
         {
             q = q->link;
             c = c->link;
@@ -190,8 +190,8 @@ void polyCombine(polypointer * arg)
     d = newPoly();
     d->link = p;
 
-    /*ÏûÈ¥ÏµÊıÎª0Ïî*/
-    if(p->coef == 0)  /*Èç¹ûÍ·½ÚµãÏµÊıÎª0*/
+    /*æ¶ˆå»ç³»æ•°ä¸º0é¡¹*/
+    if(p->coef == 0)  /*å¦‚æœå¤´èŠ‚ç‚¹ç³»æ•°ä¸º0*/
     {
         tmp = p;
         *arg = p->link;
@@ -199,7 +199,7 @@ void polyCombine(polypointer * arg)
         d->link = p;
         free(tmp);
     }
-    while(p != NULL)        /*ÏûÈ¥ÏµÊıÎª0Ïî*/
+    while(p != NULL)        /*æ¶ˆå»ç³»æ•°ä¸º0é¡¹*/
     {
         if(p->coef == 0)
         {
@@ -214,10 +214,10 @@ void polyCombine(polypointer * arg)
     }
 }
 
-/*¶àÏîÊ½°´Ö¸Êı´Ó´óµ½Ğ¡ÅÅĞò²¢ÇÒºÏ²¢Í¬ÀàÏî*/
+/*å¤šé¡¹å¼æŒ‰æŒ‡æ•°ä»å¤§åˆ°å°æ’åºå¹¶ä¸”åˆå¹¶åŒç±»é¡¹*/
 void polyRank(polypointer * arg)
 {
-    polyCombine(arg);       /*ºÏ²¢Í¬ÀàÏî*/
+    polyCombine(arg);       /*åˆå¹¶åŒç±»é¡¹*/
     polypointer p, q, k;
     double c;
     int e;
@@ -229,10 +229,10 @@ void polyRank(polypointer * arg)
         while(q!= NULL)
         {
             if(q->exp > k->exp)
-                k = q;  /*±ê¼ÇÖ¸Êı±Èp´óµÄÎ»ÖÃ*/
+                k = q;  /*æ ‡è®°æŒ‡æ•°æ¯”på¤§çš„ä½ç½®*/
             q = q->link;
         }
-        if(k != p)      /*Èô²»µÈ£¬½»»»k pÖµ*/
+        if(k != p)      /*è‹¥ä¸ç­‰ï¼Œäº¤æ¢k på€¼*/
         {
             c = p->coef;
             e = p->exp;
@@ -247,7 +247,7 @@ void polyRank(polypointer * arg)
     }
 }
 
-/*ÊÖ¶¯ÊäÈë¶àÏîÊ½*/
+/*æ‰‹åŠ¨è¾“å…¥å¤šé¡¹å¼*/
 void HandInput(polypointer * arg)
 {
     double c = 0;
@@ -267,7 +267,7 @@ void HandInput(polypointer * arg)
     free(x);
 }
 
-/*ÎÄ¼şÊäÈë¶àÏîÊ½*/
+/*æ–‡ä»¶è¾“å…¥å¤šé¡¹å¼*/
 int FileInput(polypointer * a, polypointer * b)
 {
     polypointer x;
@@ -277,7 +277,7 @@ int FileInput(polypointer * a, polypointer * b)
     FILE *fp;
     if((fp = fopen("demo.txt","rt")) == NULL)
     {
-        printf("ÎÄ¼ş²»´æÔÚ\n");
+        printf("æ–‡ä»¶ä¸å­˜åœ¨\n");
         getchar();
         return 0;
     }
@@ -306,7 +306,7 @@ int FileInput(polypointer * a, polypointer * b)
     return 1;
 }
 
-/*ÎÄ¼şĞ´»Ø*/
+/*æ–‡ä»¶å†™å›*/
 int FileOutput(polypointer a, polypointer b)
 {
     FILE *fp;
@@ -314,7 +314,7 @@ int FileOutput(polypointer a, polypointer b)
     fp = fopen("demo.txt", "w");
     if(fp == NULL)
     {
-        printf("ÎÄ¼ş²»´æÔÚ\n");
+        printf("æ–‡ä»¶ä¸å­˜åœ¨\n");
         getchar();
         return 0;
     }
@@ -336,7 +336,7 @@ int FileOutput(polypointer a, polypointer b)
     return 1;
 }
 
-/*±È½ÏÁ½¸öÖ¸ÊıµÄ´óĞ¡*/
+/*æ¯”è¾ƒä¸¤ä¸ªæŒ‡æ•°çš„å¤§å°*/
 char polyCompare(int a, int b)
 {
     int sum = a-b;
@@ -354,8 +354,8 @@ polypointer polyAdd(polypointer a, polypointer b)
     double x;
     c = newPoly();
     p = a;q = b;
-    d = c;          /*³õÊ¼»¯*/
-    if(p->coef == 0 && p->link == NULL && q->coef == 0 && q->link == NULL)  /*ÌØÊâ£ºpqÖ»ÓĞÒ»¸ö½Úµã²¢ÇÒÏµÊı¶¼Îª0*/
+    d = c;          /*åˆå§‹åŒ–*/
+    if(p->coef == 0 && p->link == NULL && q->coef == 0 && q->link == NULL)  /*ç‰¹æ®Šï¼špqåªæœ‰ä¸€ä¸ªèŠ‚ç‚¹å¹¶ä¸”ç³»æ•°éƒ½ä¸º0*/
     {
         return c;
     }
@@ -365,22 +365,22 @@ polypointer polyAdd(polypointer a, polypointer b)
         {
             case '=' :
             {
-                x = p->coef + q->coef;      /*ÏµÊıÏà¼Ó*/
+                x = p->coef + q->coef;      /*ç³»æ•°ç›¸åŠ */
                 if(x != 0)
-                    d = polyAttach(x, p->exp, d);   /*µÈÓÚ0£¬ÏûÈ¥ÕâÒ»Ïî*/
+                    d = polyAttach(x, p->exp, d);   /*ç­‰äº0ï¼Œæ¶ˆå»è¿™ä¸€é¡¹*/
                 p = p->link;
                 q = q->link;
                 break;
             }
             case '>':
             {
-                d = polyAttach(p->coef , p->exp, d);    /*Ö±½Ó½«p½áµã²¢ÈëdÖĞ*/
+                d = polyAttach(p->coef , p->exp, d);    /*ç›´æ¥å°†pç»“ç‚¹å¹¶å…¥dä¸­*/
                 p = p->link;
                 break;
             }
             case '<':
             {
-                d = polyAttach(q->coef, q->exp, d);     /*Ö±½Ó½«q½áµã²¢ÈëdÖĞ*/
+                d = polyAttach(q->coef, q->exp, d);     /*ç›´æ¥å°†qç»“ç‚¹å¹¶å…¥dä¸­*/
                 q = q->link;
                 break;
             }
@@ -410,8 +410,8 @@ polypointer polySub(polypointer a, polypointer b)
     double x;
     c = newPoly();
     p = a;q = b;
-    d = c;          /*³õÊ¼»¯*/
-    if(p->coef == 0 && p->link == NULL && q->coef == 0 && q->link == NULL)  /*ÌØÊâ£ºpqÖ»ÓĞÒ»¸ö½Úµã²¢ÇÒÏµÊı¶¼Îª0*/
+    d = c;          /*åˆå§‹åŒ–*/
+    if(p->coef == 0 && p->link == NULL && q->coef == 0 && q->link == NULL)  /*ç‰¹æ®Šï¼špqåªæœ‰ä¸€ä¸ªèŠ‚ç‚¹å¹¶ä¸”ç³»æ•°éƒ½ä¸º0*/
     {
         return c;
     }
@@ -421,22 +421,22 @@ polypointer polySub(polypointer a, polypointer b)
         {
             case '=' :
             {
-                x = p->coef - q->coef;      /*ÏµÊıÏà¼õ*/
+                x = p->coef - q->coef;      /*ç³»æ•°ç›¸å‡*/
                 if(x != 0)
-                    d = polyAttach(x, p->exp, d);   /*µÈÓÚ0£¬ÏûÈ¥ÕâÒ»Ïî*/
+                    d = polyAttach(x, p->exp, d);   /*ç­‰äº0ï¼Œæ¶ˆå»è¿™ä¸€é¡¹*/
                 p = p->link;
                 q = q->link;
                 break;
             }
             case '>':
             {
-                d = polyAttach(p->coef , p->exp, d);    /*Ö±½Ó½«p½áµã²¢ÈëdÖĞ*/
+                d = polyAttach(p->coef , p->exp, d);    /*ç›´æ¥å°†pç»“ç‚¹å¹¶å…¥dä¸­*/
                 p = p->link;
                 break;
             }
             case '<':
             {
-                d = polyAttach((-q->coef), q->exp, d);     /*Ö±½Ó½«q½áµã²¢ÈëdÖĞ,²¢ÇÒ½«qÏµÊı±äÎªÏà·´Êı*/
+                d = polyAttach((-q->coef), q->exp, d);     /*ç›´æ¥å°†qç»“ç‚¹å¹¶å…¥dä¸­,å¹¶ä¸”å°†qç³»æ•°å˜ä¸ºç›¸åæ•°*/
                 q = q->link;
                 break;
             }
@@ -466,9 +466,9 @@ polypointer polyMul(polypointer a, polypointer b)
     c = newPoly();
     p = a;
     q = b;
-    h = c;      /*±£´æ½á¹ûÍ·½Úµã*/
-    c->link = h;/*½¨Á¢»·ĞÎÁ´±í*/
-    t = c;      /*±£´æÎ²½Úµã*/
+    h = c;      /*ä¿å­˜ç»“æœå¤´èŠ‚ç‚¹*/
+    c->link = h;/*å»ºç«‹ç¯å½¢é“¾è¡¨*/
+    t = c;      /*ä¿å­˜å°¾èŠ‚ç‚¹*/
     double co = 0;
     int e = 0;
     while(p != NULL)
@@ -477,7 +477,7 @@ polypointer polyMul(polypointer a, polypointer b)
         {
             co = p->coef * q->coef;
             e = p->exp + q->exp;
-            while(c != NULL)      /*Ñ°ÕÒÆ¥ÅäÏî*/
+            while(c != NULL)      /*å¯»æ‰¾åŒ¹é…é¡¹*/
             {
                 if(e == c->exp)
                 {
@@ -488,7 +488,7 @@ polypointer polyMul(polypointer a, polypointer b)
                 if(c->link == h)
                 {
                     c = polyAttach(co, e, c);
-                    c->link = h;    /*Î²Ö¸ÕëÖ¸ÏòÍ·½Úµã£¬Ñ­»·Á´±í*/
+                    c->link = h;    /*å°¾æŒ‡é’ˆæŒ‡å‘å¤´èŠ‚ç‚¹ï¼Œå¾ªç¯é“¾è¡¨*/
                     t = c;
                     break;
                 }
@@ -496,22 +496,22 @@ polypointer polyMul(polypointer a, polypointer b)
             q = q->link;
         }
         p = p->link;
-        q = b;  /*¸´Î»*/
+        q = b;  /*å¤ä½*/
     }
-    t->link = NULL;     /*ĞŞ¸ÄÎ²½Úµã*/
-    if(h->link != NULL && h->coef == 0) /*ÊÇ·ñ¾ÍÒ»¸ö½Úµã*/
+    t->link = NULL;     /*ä¿®æ”¹å°¾èŠ‚ç‚¹*/
+    if(h->link != NULL && h->coef == 0) /*æ˜¯å¦å°±ä¸€ä¸ªèŠ‚ç‚¹*/
     {
         p = h;
         h = h->link;
         free(p);
     }
-    polyRank(&h);   /*¶àÏîÊ½ÕûÀí*/
+    polyRank(&h);   /*å¤šé¡¹å¼æ•´ç†*/
     return h;
 }
 
 polypointer polyDiv(polypointer a, polypointer b)
 {
-    polypointer p, q, c, d, e, h;  /*c ½á¹û£¬d ½á¹û*³ıÊ½£¬e ²îÊ½£¨ĞÂµÄ±»³ıÊ½£©*/
+    polypointer p, q, c, d, e, h;  /*c ç»“æœï¼Œd ç»“æœ*é™¤å¼ï¼Œe å·®å¼ï¼ˆæ–°çš„è¢«é™¤å¼ï¼‰*/
     double co = 0;
     int ex = 0;
     p = a;
@@ -519,7 +519,7 @@ polypointer polyDiv(polypointer a, polypointer b)
     e = p;
     c = newPoly();
     h = c;
-    if(p->exp < q->exp)     /*±»³ıÊ½×î¸ßÏîÖ¸ÊıĞ¡ÓÚ³ıÊ½Ö¸Êı£¬ÓàÊıÏîÎª±»³ıÊ½*/
+    if(p->exp < q->exp)     /*è¢«é™¤å¼æœ€é«˜é¡¹æŒ‡æ•°å°äºé™¤å¼æŒ‡æ•°ï¼Œä½™æ•°é¡¹ä¸ºè¢«é™¤å¼*/
     {
         c = p;
         return c;
@@ -530,9 +530,9 @@ polypointer polyDiv(polypointer a, polypointer b)
         ex = e->exp - q->exp;
         c = polyAttach(co, ex, c);
         d = polyMul(c, q);
-        e = polySub(e, d);      /*ĞÂµÄ±»³ıÊ½*/
+        e = polySub(e, d);      /*æ–°çš„è¢«é™¤å¼*/
     }
-    printf("Á½Ê½Ö®ÓàÊıÎª£º ");
+    printf("ä¸¤å¼ä¹‹ä½™æ•°ä¸ºï¼š ");
     polyPrint(e);
     c = h->link;
     free(h);
@@ -540,7 +540,7 @@ polypointer polyDiv(polypointer a, polypointer b)
     return c;
 }
 
-/*¼ÆËãx=x0¶àÏîÊ½µÄºÍ*/
+/*è®¡ç®—x=x0å¤šé¡¹å¼çš„å’Œ*/
 float polyCalc(polypointer arg, float x)
 {
     double sum = 0;
@@ -557,7 +557,7 @@ float polyCalc(polypointer arg, float x)
 void polyState(polypointer a, polypointer b)
 {
     printf( "========================\n"
-            "Êı¾İ½á¹¹ÓëËã·¨µÚÒ»´ÎÊµÑé\n"
+            "æ•°æ®ç»“æ„ä¸ç®—æ³•ç¬¬ä¸€æ¬¡å®éªŒ\n"
             "A:");
     polyPrint(a);
     printf("B:");
@@ -566,13 +566,13 @@ void polyState(polypointer a, polypointer b)
 
 }
 
-/*²Ëµ¥*/
+/*èœå•*/
 void Menu()
 {
-    polypointer a,b,c;  /*½¨Á¢3¸ö¶àÏîÊ½Ö¸Õë*/
+    polypointer a,b,c;  /*å»ºç«‹3ä¸ªå¤šé¡¹å¼æŒ‡é’ˆ*/
     a = newPoly();
     b = newPoly();
-    c = newPoly();         /*³õÊ¼»¯*/
+    c = newPoly();         /*åˆå§‹åŒ–*/
     float x = 0;
     while(1)
     {
@@ -580,10 +580,10 @@ void Menu()
         char op;
         system("cls");
         polyState(a, b);
-        printf("1.½¨Á¢Ö¸Êı½µÃİÅÅÁĞ¶àÏîÊ½\n"
-               "2.¼ÆËãx=x0µÄÖµ\n"
-               "3.¶àÏîÊ½µÄËÄÔòÔËËã\n"
-               "4.´òÓ¡µ±Ç°¶àÏîÊ½\n");
+        printf("1.å»ºç«‹æŒ‡æ•°é™å¹‚æ’åˆ—å¤šé¡¹å¼\n"
+               "2.è®¡ç®—x=x0çš„å€¼\n"
+               "3.å¤šé¡¹å¼çš„å››åˆ™è¿ç®—\n"
+               "4.æ‰“å°å½“å‰å¤šé¡¹å¼\n");
         op = getchar();
         switch(op)
         {
@@ -592,21 +592,21 @@ void Menu()
                 fflush(stdin);
                 system("cls");
                 polyState(a, b);
-                printf("1.ÊÖ¶¯ÊäÈë\n2.ÎÄ¼şÊäÈë\n3.ÎÄ¼şÊä³ö\n");
+                printf("1.æ‰‹åŠ¨è¾“å…¥\n2.æ–‡ä»¶è¾“å…¥\n3.æ–‡ä»¶è¾“å‡º\n");
                 op = getchar();
                 if(op == '1')
                 {
                     a = newPoly();
                     b = newPoly();
-                    printf("ÇëÊäÈëµÚÒ»¸ö¶àÏîÊ½£¬ÏµÊıÓëÖ¸Êı£¬ÖĞ¼ä¿Õ¸ñ·Ö¿ª,»Ø³µÈ·ÈÏ\n");
+                    printf("è¯·è¾“å…¥ç¬¬ä¸€ä¸ªå¤šé¡¹å¼ï¼Œç³»æ•°ä¸æŒ‡æ•°ï¼Œä¸­é—´ç©ºæ ¼åˆ†å¼€,å›è½¦ç¡®è®¤\n");
                     HandInput(&a);
                     polyRank(&a);
                     polyPrint(a);
-                    printf("ÇëÊäÈëµÚ¶ş¸ö¶àÏîÊ½£¬ÏµÊıÓëÖ¸Êı£¬ÖĞ¼ä¿Õ¸ñ·Ö¿ª,»Ø³µÈ·ÈÏ\n");
+                    printf("è¯·è¾“å…¥ç¬¬äºŒä¸ªå¤šé¡¹å¼ï¼Œç³»æ•°ä¸æŒ‡æ•°ï¼Œä¸­é—´ç©ºæ ¼åˆ†å¼€,å›è½¦ç¡®è®¤\n");
                     HandInput(&b);
                     polyRank(&b);
                     polyPrint(b);
-                    printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                    printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                     fflush(stdin);
                     getchar();
                 }
@@ -619,7 +619,7 @@ void Menu()
                     polyRank(&b);
                     polyPrint(a);
                     polyPrint(b);
-                    printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                    printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                     fflush(stdin);
                     getchar();
                 }
@@ -627,22 +627,22 @@ void Menu()
                 {
                     if(!FileOutput(a, b))
                     {
-                        printf("Êä³ö´íÎó\n");
+                        printf("è¾“å‡ºé”™è¯¯\n");
                     }
-                    printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                    printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                     fflush(stdin);
                     getchar();
                 }
                 else
-                    printf("Ñ¡Ïî²»´æÔÚ\n");
+                    printf("é€‰é¡¹ä¸å­˜åœ¨\n");
                 break;
             }
         case '2':
             {
-                printf("ÇëÊäÈëx0µÄÖµ\n");
+                printf("è¯·è¾“å…¥x0çš„å€¼\n");
                 scanf("%f", &x);
-                printf("x=%fµÄ¼ÆËã½á¹ûÎª£º \nA: %f\nB: %f\n", x,polyCalc(a, x), polyCalc(b,x));
-                printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                printf("x=%fçš„è®¡ç®—ç»“æœä¸ºï¼š \nA: %f\nB: %f\n", x,polyCalc(a, x), polyCalc(b,x));
+                printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                 fflush(stdin);
                 getchar();
                 break;
@@ -652,16 +652,16 @@ void Menu()
                 fflush(stdin);
                 system("cls");
                 polyState(a, b);
-                printf("1.¶àÏîÊ½¼Ó·¨\n2.¶àÏîÊ½¼õ·¨\n3.¶àÏîÊ½³Ë·¨\n4.¶àÏîÊ½³ı·¨\n");
+                printf("1.å¤šé¡¹å¼åŠ æ³•\n2.å¤šé¡¹å¼å‡æ³•\n3.å¤šé¡¹å¼ä¹˜æ³•\n4.å¤šé¡¹å¼é™¤æ³•\n");
                 op = getchar();
                 if(op == '1')
                 {
                     polyPrint(a);
                     polyPrint(b);
                     c = polyAdd(a, b);
-                    printf("Á½Ê½Ö®ºÍÎª£º ");
+                    printf("ä¸¤å¼ä¹‹å’Œä¸ºï¼š ");
                     polyPrint(c);
-                    printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                    printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                     fflush(stdin);
                     getchar();
                 }
@@ -670,9 +670,9 @@ void Menu()
                     polyPrint(a);
                     polyPrint(b);
                     c = polySub(a, b);
-                    printf("Á½Ê½Ö®²îÎª£º ");
+                    printf("ä¸¤å¼ä¹‹å·®ä¸ºï¼š ");
                     polyPrint(c);
-                    printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                    printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                     fflush(stdin);
                     getchar();
                 }
@@ -681,9 +681,9 @@ void Menu()
                     polyPrint(a);
                     polyPrint(b);
                     c = polyMul(a, b);
-                    printf("Á½Ê½Ö®»ıÎª£º ");
+                    printf("ä¸¤å¼ä¹‹ç§¯ä¸ºï¼š ");
                     polyPrint(c);
-                    printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                    printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                     fflush(stdin);
                     getchar();
                 }
@@ -692,16 +692,16 @@ void Menu()
                     polyPrint(a);
                     polyPrint(b);
                     c = polyDiv(a, b);
-                    printf("Á½Ê½Ö®ÉÌÎª£º ");
+                    printf("ä¸¤å¼ä¹‹å•†ä¸ºï¼š ");
                     polyPrint(c);
-                    printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                    printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                     fflush(stdin);
                     getchar();
                 }
                 else
                 {
-                    printf("Ñ¡Ïî²»´æÔÚ");
-                    printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                    printf("é€‰é¡¹ä¸å­˜åœ¨");
+                    printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                     fflush(stdin);
                     getchar();
                 }
@@ -712,7 +712,7 @@ void Menu()
             {
                 polyPrint(a);
                 polyPrint(b);
-                printf("ÊäÈëÈÎÒâ¼ü¼ÌĞø\n");
+                printf("è¾“å…¥ä»»æ„é”®ç»§ç»­\n");
                 fflush(stdin);
                 getchar();
                 break;

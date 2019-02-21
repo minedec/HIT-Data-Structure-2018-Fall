@@ -1,7 +1,7 @@
 /*
-/*ĞÕÃû£º
-/*Ñ§ºÅ£º1163450201
-/*ÊµÑéÃû³Æ£ºÍ¼ĞÍ½á¹¹µÄ½¨Á¢ÓëËÑË÷
+/*å§“åï¼š
+/*å­¦å·ï¼š1163450201
+/*å®éªŒåç§°ï¼šå›¾å‹ç»“æ„çš„å»ºç«‹ä¸æœç´¢
 */
 #include <stdio.h>
 #include <limits.h>
@@ -16,7 +16,7 @@
 int visited[MAX_NUM];
 int dfn[MAX_NUM];
 int bfn[MAX_NUM];
-int cnt;    /*±éÀú±àºÅ*/
+int cnt;    /*éå†ç¼–å·*/
 
 typedef struct Queue
 {
@@ -25,31 +25,31 @@ typedef struct Queue
     int rear;
 }Queue;
 
-typedef enum{DG,AG} GraphKind;  /*¶¨ÒåÍ¼ÖÖÀà*/
+typedef enum{DG,AG} GraphKind;  /*å®šä¹‰å›¾ç§ç±»*/
 
 typedef struct ArcCell
 {
-    int adj;   /*±ê¼ÇÁ½µãÊÇ·ñÓĞ±ß*/
-    int info;  /*È¨Öµ*/
+    int adj;   /*æ ‡è®°ä¸¤ç‚¹æ˜¯å¦æœ‰è¾¹*/
+    int info;  /*æƒå€¼*/
 
 }ArcCell , AdjMatrix[MAX_NUM][MAX_NUM];
 
 typedef struct Mgraph
 {
-    char element[MAX_NUM];  /*±£´æ¶¥µãĞÅÏ¢*/
-    AdjMatrix arcs;     /*ÁÚ½Ó¹ØÏµ*/
+    char element[MAX_NUM];  /*ä¿å­˜é¡¶ç‚¹ä¿¡æ¯*/
+    AdjMatrix arcs;     /*é‚»æ¥å…³ç³»*/
     int vexnum, arcnum;
     GraphKind kind;
 }MGraph;
 
 typedef struct ArcNode
 {
-    int adjvex;  /*±ê¼Ç¸ÃµãµÄÏÂ±ê*/
+    int adjvex;  /*æ ‡è®°è¯¥ç‚¹çš„ä¸‹æ ‡*/
     struct ArcNode * next;
-    int info;  /*È¨Öµ*/
+    int info;  /*æƒå€¼*/
 }ArcNode;
 
-typedef struct Vnode  /*¶¨ÒåÍ·½Úµã*/
+typedef struct Vnode  /*å®šä¹‰å¤´èŠ‚ç‚¹*/
 {
     char element;
     ArcNode * firstnode;
@@ -57,7 +57,7 @@ typedef struct Vnode  /*¶¨ÒåÍ·½Úµã*/
 
 typedef struct ALGraph
 {
-    AdjList vertices;  /*¶¨ÒåÍ·½áµãÁĞ±í*/
+    AdjList vertices;  /*å®šä¹‰å¤´ç»“ç‚¹åˆ—è¡¨*/
     int vexnum,arcnum;
     GraphKind kind;
 }ALGraph;
@@ -86,12 +86,12 @@ void build_Mgraph(FILE * fp, MGraph * mgraph)
     {
         for(j = 0; j < mgraph->vexnum; j++)
         {
-            mgraph->arcs[i][j].adj = 0;  /*ÁÚ½Ó¾ØÕó³õÊ¼»¯*/
+            mgraph->arcs[i][j].adj = 0;  /*é‚»æ¥çŸ©é˜µåˆå§‹åŒ–*/
         }
     }
     for(i = 0; i < mgraph->arcnum; i++)
     {
-        fscanf(fp, " %d %d", &x, &y);   /*ÎŞÏòÍ¼ÊäÈë±ß*/
+        fscanf(fp, " %d %d", &x, &y);   /*æ— å‘å›¾è¾“å…¥è¾¹*/
         mgraph->arcs[x][y].adj = 1;
         mgraph->arcs[y][x].adj = 1;
     }
@@ -110,7 +110,7 @@ void show_Mgraph(MGraph * mgraph)
     }
 }
 
-/*ÁÚ½Ó¾ØÕóµÄµİ¹éDFS*/
+/*é‚»æ¥çŸ©é˜µçš„é€’å½’DFS*/
 void Mgraph_DFS_cur(MGraph * mgraph, int i)
 {
     int j;
@@ -127,7 +127,7 @@ void Mgraph_DFS_cur(MGraph * mgraph, int i)
     }
 }
 
-/*ÁÚ½Ó¾ØÕóµÄ·Çµİ¹éDFS*/
+/*é‚»æ¥çŸ©é˜µçš„éé€’å½’DFS*/
 void Mgraph_DFS_nocur(MGraph * mgraph,int i)
 {
     int stack[MAX_NUM];
@@ -154,7 +154,7 @@ void Mgraph_DFS_nocur(MGraph * mgraph,int i)
     }
 }
 
-/*ÁÚ½Ó¾ØÕóµÄBFS*/
+/*é‚»æ¥çŸ©é˜µçš„BFS*/
 void Mgraph_BFS(MGraph * mgraph, int i)
 {
     Queue Q;
@@ -179,7 +179,7 @@ void Mgraph_BFS(MGraph * mgraph, int i)
     }
 }
 
-/*ÁÚ½Ó¾ØÕó×ª»¯ÁÚ½Ó±í*/
+/*é‚»æ¥çŸ©é˜µè½¬åŒ–é‚»æ¥è¡¨*/
 void Mgraph_convertto_ALgraph(MGraph * mgraph, ALGraph * algraph)
 {
     int i, j, k, x, y;
@@ -196,7 +196,7 @@ void Mgraph_convertto_ALgraph(MGraph * mgraph, ALGraph * algraph)
     {
         for(y = x ; y < algraph->vexnum; y++)
         {
-            if(mgraph->arcs[x][y].adj == 1)  /*Èç¹ûx y ÓĞ±ß*/
+            if(mgraph->arcs[x][y].adj == 1)  /*å¦‚æœx y æœ‰è¾¹*/
             {
                 p = algraph->vertices[x].firstnode;
                 while(p != NULL)
@@ -204,16 +204,16 @@ void Mgraph_convertto_ALgraph(MGraph * mgraph, ALGraph * algraph)
                     t = p;
                     p = p->next;
                 }
-                p = (ArcNode *)malloc(sizeof(ArcNode));  /*ÉêÇë½áµã*/
+                p = (ArcNode *)malloc(sizeof(ArcNode));  /*ç”³è¯·ç»“ç‚¹*/
                 p->adjvex = y;
                 p->next = NULL;
-                if(algraph->vertices[x].firstnode == NULL)  /*ÅĞ¶ÏÊÇ·ñÍ·Ö¸ÕëÎª¿Õ*/
+                if(algraph->vertices[x].firstnode == NULL)  /*åˆ¤æ–­æ˜¯å¦å¤´æŒ‡é’ˆä¸ºç©º*/
                 {
-                    algraph->vertices[x].firstnode = p;  /*²åÈëµ½Í·Ö¸Õë´¦*/
+                    algraph->vertices[x].firstnode = p;  /*æ’å…¥åˆ°å¤´æŒ‡é’ˆå¤„*/
                 }
                 else
                 {
-                    t->next = p;  /*·ñÔò²åÈëµ½½áµãnextÖ¸Õë´¦*/
+                    t->next = p;  /*å¦åˆ™æ’å…¥åˆ°ç»“ç‚¹nextæŒ‡é’ˆå¤„*/
                 }
 
                 p = algraph->vertices[y].firstnode;
@@ -309,7 +309,7 @@ void show_ALgraph(ALGraph * algraph)
     }
 }
 
-/*ÁÚ½Ó±íµÄµİ¹éDFS*/
+/*é‚»æ¥è¡¨çš„é€’å½’DFS*/
 void ALgraph_DFS_cur(ALGraph * algraph, int i)
 {
     ArcNode * p;
@@ -327,7 +327,7 @@ void ALgraph_DFS_cur(ALGraph * algraph, int i)
     }
 }
 
-/*ÁÚ½Ó±íµÄ·Çµİ¹éDFS*/
+/*é‚»æ¥è¡¨çš„éé€’å½’DFS*/
 void ALgraph_DFS_nocur(ALGraph * algraph, int i)
 {
     int stack[MAX_NUM];
@@ -355,7 +355,7 @@ void ALgraph_DFS_nocur(ALGraph * algraph, int i)
     }
 }
 
-/*ÁÚ½Ó±íµÄBFS*/
+/*é‚»æ¥è¡¨çš„BFS*/
 void ALgraph_BFS(ALGraph * algraph, int i)
 {
     Queue Q;
@@ -384,7 +384,7 @@ void ALgraph_BFS(ALGraph * algraph, int i)
 
 }
 
-/*ÁÚ½Ó±í×ªÎªÁÚ½Ó¾ØÕó*/
+/*é‚»æ¥è¡¨è½¬ä¸ºé‚»æ¥çŸ©é˜µ*/
 void ALgraph_convertto_Mgraph(MGraph * mgraph , ALGraph * algraph)
 {
     int i, j, x, y;
@@ -398,11 +398,11 @@ void ALgraph_convertto_Mgraph(MGraph * mgraph , ALGraph * algraph)
     {
         for(j = 0; j < mgraph->vexnum; j++)
         {
-            mgraph->arcs[i][j].adj = 0;  /*ÁÚ½Ó¾ØÕó³õÊ¼»¯*/
+            mgraph->arcs[i][j].adj = 0;  /*é‚»æ¥çŸ©é˜µåˆå§‹åŒ–*/
         }
     }
 
-        for(x = 0 ; x < mgraph->vexnum; x ++)   /*ÎŞÏòÍ¼ÊäÈë±ß*/
+        for(x = 0 ; x < mgraph->vexnum; x ++)   /*æ— å‘å›¾è¾“å…¥è¾¹*/
         {
             p = algraph->vertices[x].firstnode;
             while(p != NULL)
